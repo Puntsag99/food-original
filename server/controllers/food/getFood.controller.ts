@@ -5,6 +5,8 @@ export const getFoodController = async (req: Request, res: Response) => {
   try {
     const foods = await FoodModel.find();
 
+    const total = await FoodModel.countDocuments();
+
     if (foods.length === 0) {
       res.status(400).send({ message: "All food not found" });
       return;
@@ -12,7 +14,8 @@ export const getFoodController = async (req: Request, res: Response) => {
 
     res.status(200).json({
       message: "All foods fetched successfully",
-      data: foods,
+      foods,
+      total,
     });
   } catch (error) {
     console.error("Error fetching foods:", error);

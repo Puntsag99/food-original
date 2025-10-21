@@ -8,12 +8,30 @@ export const getFoodCategoryController = async (
   try {
     const categories = await FoodCateGoryModel.find();
 
+    const categoriesWithCount = await FoodCateGoryModel.aggregate([
+      {
+        $lookup: {
+          from: "foods",
+          localField: "_id",
+          foreignField: "category",
+          as: "foods",
+        },
+      },
+      {
+        $addFields: {
+          foodCount: { $size: "$foods" },
+        },
+      },
+    ]);
+
     if (!categories || categories.length === 0) {
       res.status(400).send({ message: "No categories found" });
       return;
     }
 
-    res.status(200).send({ message: "All Categories ", categories });
+    res
+      .status(200)
+      .send({ message: "All Categories ", categories: categoriesWithCount });
     return;
   } catch (error) {
     console.error("Error during getting categories", error);

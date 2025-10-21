@@ -16,14 +16,14 @@ export const signinController = async (req: Request, res: Response) => {
     const user = await UserModel.findOne({ email });
 
     if (!user) {
-      res.status(401).send({ message: "Буруу email " });
+      res.status(401).send({ field: "email", message: "Буруу email " });
       return;
     }
 
     const isMatch = decryptHash(password, user.password);
 
     if (!isMatch) {
-      res.status(401).send({ message: "Password is wrong" });
+      res.status(401).send({ field: "password", message: "Password is wrong" });
       return;
     }
 

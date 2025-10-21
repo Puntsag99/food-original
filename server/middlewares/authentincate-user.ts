@@ -12,7 +12,7 @@ export const authenticateUser = async (
   const token = authorization?.split(" ")[1];
 
   if (!authorization) {
-    res.status(400).send({ message: "Authorization token is valid " });
+    res.status(400).send({ message: "Authorization header is missing" });
     return;
   }
 

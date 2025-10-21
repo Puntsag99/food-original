@@ -20,7 +20,7 @@ export const getFoodByCategoryController = async (
       return;
     }
 
-    res.status(200).send({ message: "Found food successfully", data: food });
+    res.status(200).send({ message: "Found food successfully", food });
   } catch (error) {
     console.error("Error during by categoryId");
     res.status(500).json({

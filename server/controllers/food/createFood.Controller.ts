@@ -3,17 +3,24 @@ import { Request, Response } from "express";
 
 type foodBody = {
   foodName: string;
-  price: number;
-  image: string;
-  ingredients: string[];
+  foodPrice: number;
+  foodImage: string;
+  ingredients: string;
 };
 
 export const createFoodController = async (req: Request, res: Response) => {
   try {
     const { id: categoryId } = req.params;
-    const { foodName, price, image, ingredients } = req.body as foodBody;
+    const { foodName, foodPrice, foodImage, ingredients } =
+      req.body as foodBody;
 
-    if (!categoryId || !foodName || price == null || !image || !ingredients) {
+    if (
+      !categoryId ||
+      !foodName ||
+      foodPrice == null ||
+      !foodImage ||
+      !ingredients
+    ) {
       res.status(400).send({ message: "All fields are required" });
       return;
     }
@@ -33,8 +40,8 @@ export const createFoodController = async (req: Request, res: Response) => {
     const newFood = await FoodModel.create({
       category: categoryId,
       foodName,
-      price,
-      image,
+      foodPrice,
+      foodImage,
       ingredients,
     });
 

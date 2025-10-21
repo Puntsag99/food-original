@@ -1,5 +1,5 @@
-import { UserContextProvider } from "@/providers/ProviderContext";
 import React from "react";
+import { UserContextProvider } from "../providers/UserProvider";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -1,21 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { AddCategory, CreateFoodPlus } from "@/app/components";
+import { AddCategory, Foods } from "@/app/components";
 
 const Food = () => {
+  const [selectedCategoryId, setSelectedCategoryId] = useState("");
+
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 100 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -100 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex flex-col gap-y-6">
-        <AddCategory />
-        <CreateFoodPlus />
-      </div>
-    </motion.div>
+    <div className="flex flex-col gap-y-6 ">
+      <AddCategory setSelectedCategoryId={setSelectedCategoryId} />
+      <Foods selectedCategoryId={selectedCategoryId} />
+    </div>
   );
 };
 
